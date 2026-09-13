@@ -3,12 +3,15 @@
   "version": "1.0.0",
   "type": "module",
   "private": true,
+  "engines": {
+    "node": "20.x"
+  },
   "scripts": {
     "dev": "concurrently -k -n server,client -c blue,green \"npm:dev:server\" \"npm:dev:client\"",
     "dev:server": "tsx watch server/index.ts",
     "dev:client": "vite",
-    "build": "vite build && esbuild server/index.ts --platform=node --packages=external --bundle --format=esm --outdir=dist/server",
-    "start": "NODE_ENV=production node dist/server/index.js",
+    "build": "vite build && esbuild server/index.ts server/seed.ts --platform=node --packages=external --bundle --format=esm --outdir=dist/server",
+    "start": "NODE_ENV=production node dist/server/seed.js && NODE_ENV=production node dist/server/index.js",
     "seed": "tsx server/seed.ts",
     "check": "tsc --noEmit"
   },
